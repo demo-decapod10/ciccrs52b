@@ -199,3 +199,6 @@ charts:
 - name: loki
   override:
     global.dnsService: kube-dns
+    ingester:
+      persistence:
+        size: 40Gi
