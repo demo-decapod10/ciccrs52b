@@ -201,4 +201,4 @@ charts:
     global.dnsService: kube-dns
     ingester:
       persistence:
-        size: 40Gi
+        size: 20Gi
