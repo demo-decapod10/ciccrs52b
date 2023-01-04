@@ -46,7 +46,9 @@ charts:
 
 - name: aws-ebs-csi-driver
   override:
-
+    storageClasses: []
+    
+    
 - name: kubernetes-addons
   override:
     cni.calico.enabled: true
