@@ -79,6 +79,8 @@ charts:
     grafana.ini.user:
       auto_assign_org: true
       auto_assign_org_role: Admin
+    service:
+      type: LoadBalancer
 - name: fluent-operator
 - name: fluentbit
   override:
