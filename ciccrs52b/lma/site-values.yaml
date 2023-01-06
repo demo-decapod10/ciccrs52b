@@ -108,7 +108,7 @@ charts:
           loki_name: taco-loki
           key: $kubernetes['namespace_name']
           value: kube-system|taco-system|lma|argo
-        parser: docker-on-kst
+        parser: docker
         path: /var/log/containers/*.log
         type: kubernates
         extraArgs:
