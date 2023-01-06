@@ -84,6 +84,10 @@ charts:
 - name: fluent-operator
 - name: fluentbit
   override:
+    image:
+      fluentbit:
+        repository: ghcr.io/openinfradev/fluentbit
+        tag: v1.9.9-kst
     fluentbit:
       clusterName: $(clusterName)
       outputs:
