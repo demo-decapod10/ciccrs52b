@@ -108,7 +108,7 @@ charts:
           loki_name: taco-loki
           key: $kubernetes['namespace_name']
           value: kube-system|taco-system|lma|argo
-        parser: docker-kst
+        parser: docker-on-kst
         path: /var/log/containers/*.log
         type: kubernates
         extraArgs:
@@ -116,7 +116,7 @@ charts:
       - tag: syslog.*
         loki_name: taco-loki
         index: syslog
-        parser: taco-syslog-parser-for-ubuntu-kst
+        parser: taco-syslog-parser-for-ubuntu-on-kst
         path: /var/log/syslog
         type: syslog
       parsers: []
