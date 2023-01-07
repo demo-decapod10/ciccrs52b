@@ -111,8 +111,7 @@ charts:
         parser: docker
         path: /var/log/containers/*.log
         type: kubernates
-        extraArgs:
-          multilineParser: docker, cri
+        extraArgs: {}
       - tag: syslog.*
         loki_name: taco-loki
         index: syslog
