@@ -154,7 +154,7 @@ charts:
     addons:
       loki:
         enabled: true
-        host: loki
+        host: loki-loki-distributed-gateway
         port: 3100
         target_file: "/tmp/kubernetes-event.log"
     conf.default.hosts:
