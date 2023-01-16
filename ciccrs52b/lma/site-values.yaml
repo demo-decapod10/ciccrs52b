@@ -13,6 +13,10 @@ global:
   defaultUser: taco
   thanosObjstoreSecret: taco-objstore-secret
   thanosPrimaryCluster: false
+
+  lokiHost: loki-loki-distributed-gateway
+  lokiPort: 80
+
   realms: 04a70f29
   serviceDomain: taco-cat.xyz
   keycloakDomain: keycloak-eom.taco-cat.xyz
@@ -93,8 +97,8 @@ charts:
       outputs:
         loki:
         - name: taco-loki
-          host: loki-loki-distributed-gateway
-          port: 80
+          host: $(lokiHost)
+          port: $(lokiPort)
       targetLogs:
       - tag: kube.*
         bufferChunkSize: 2M
@@ -133,6 +137,15 @@ charts:
     serviceMonitor.trident:
       enabled: false
       interval: $(serviceScrapeInterval)
+    grafanaDatasource:
+      enabled: true
+      namespace: lma
+      prometheus:
+        enabled: true
+        url: "thanos-query.lma:9090"
+      loki:
+        enabled: true
+        url: $(lokiHost):$(lokiPort)
     serviceMonitor.kubelet.interval: 30s
     serviceMonitor.additionalScrapeConfigs:
     grafanaDashboard.istio.enabled: false
@@ -146,6 +159,8 @@ charts:
     nodeSelector: $(nodeSelector)
 - name: kubernetes-event-exporter
   override:
+    clustername: $(clusterName)
+
     conf.recievers:
     - name: loki
       type: file
@@ -154,8 +169,8 @@ charts:
     addons:
       loki:
         enabled: true
-        host: loki-loki-distributed-gateway
-        port: 80
+        host: $(lokiHost)
+        port: $(lokiPort)
         target_file: "/tmp/kubernetes-event.log"
     conf.default.hosts:
     - "https://eck-elasticsearch-es-http.lma.svc.$(clusterName):9200"
@@ -215,6 +230,6 @@ charts:
     global.dnsService: kube-dns
     ingester:
       persistence:
-        size: 20Gi        
+        size: 20Gi
     serviceMonitor:
       enabled: true
